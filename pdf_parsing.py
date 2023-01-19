@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Oct 28 14:25:28 2020
-
+pd
 @author: 3kt
 """
-path = r'C:\Users\3kt\Downloads\karunyahaloi01.pdf'
-path1 = r"C:\Users\3kt\Downloads\RuchaSawarkar.pdf"
-path2 = r"C:\Users\3kt\Downloads\resume.pdf"
-
+#%%
+doc1 = r'./pdfs/karunyahaloi01.pdf'
+doc2 = r"./pdfs/RuchaSawarkar.pdf"
+doc3 = r"./pdfs/resume.pdf"
+#%%
 #Using PyPDF2
 # importing required modules  
 import PyPDF4    
 # creating a pdf file object  
-pdfFileObj = open(path1, 'rb')    
+pdfFileObj = open(doc2, 'rb')    
 # creating a pdf reader object  
 pdfReader = PyPDF4.PdfFileReader(pdfFileObj)    
 # printing number of pages in pdf file  
@@ -27,28 +28,29 @@ for i in range(pdfReader.numPages):
 # closing the pdf file object  
 pdfFileObj.close()  
 
-#using Tika
-from tika import parser # pip install tika
-raw = parser.from_file(path)
-tika_text = raw['content']
+#%%
+# #using Tika
+# from tika import parser # pip install tika
+# raw = parser.from_file(path)
+# tika_text = raw['content']
 
-import codecs
-#using Textract
-import textract
-textract_text = textract.process(r'C:\Users\3kt\Downloads\karunyahaloi01.pdf')
-textract_str_text = codecs.decode(textract_text)
+# import codecs
+# #using Textract
+# import textract
+# textract_text = textract.process(r'C:\Users\3kt\Downloads\karunyahaloi01.pdf')
+# textract_str_text = codecs.decode(textract_text)
 
-
+#%%
 #Usinf pymupdf
 import fitz  # this is pymupdf
-with fitz.open(path2) as doc:
+with fitz.open(doc3) as doc:
     pymupdf_text = ""
     for page in doc:
         pymupdf_text += page.getText()
 #print(pymupdf_text)
 
 
-
+#%%
 #Using PDFminer
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import TextConverter
@@ -76,31 +78,32 @@ def convert_pdf_to_txt(path):
     retstr.close()
     return text
 
-pdf_miner_text = convert_pdf_to_txt(path2)
+pdf_miner_text = convert_pdf_to_txt(doc3)
 
-#Using PDFtotext
-import pdftotext
-# Load your PDF
-with open(path1, "rb") as f:
-    pdf = pdftotext.PDF(f)
-# Read all the text into one string
-pdftotext_text = "\n\n".join(pdf)
-#print("\n\n".join(pdf))
+#%%
+# #Using PDFtotext
+# import pdftotext
+# # Load your PDF
+# with open(path1, "rb") as f:
+#     pdf = pdftotext.PDF(f)
+# # Read all the text into one string
+# pdftotext_text = "\n\n".join(pdf)
+# #print("\n\n".join(pdf))
 
-def saveText(texto, fileName, nameLib):
-    """Save the text in a file
-    Arguments:xc
-        texto {str} -- text in str format
-        fileName {str} -- filename (without path in this code)
-        nameLib {str} -- name of extractor project
-    """    
-    arq = open(fileName + "-" + nameLib + ".txt", "w")
-    arq.write(texto)        
-    arq.close()
+# def saveText(texto, fileName, nameLib):
+#     """Save the text in a file
+#     Arguments:xc
+#         texto {str} -- text in str format
+#         fileName {str} -- filename (without path in this code)
+#         nameLib {str} -- name of extractor project
+#     """    
+#     arq = open(fileName + "-" + nameLib + ".txt", "w")
+#     arq.write(texto)        
+#     arq.close()
     
-saveText(pdftotext_text, r"C:\Users\3kt\Desktop\Rucha\Similarity\pinku.txt", "pdftotext")
+# saveText(pdftotext_text, r"C:\Users\3kt\Desktop\Rucha\Similarity\pinku.txt", "pdftotext")
 
-
+#%%
 #using Tabula
 import tabula
-df = tabula.read_pdf(path, pages='all')
+df = tabula.read_pdf(doc1, pages='all')

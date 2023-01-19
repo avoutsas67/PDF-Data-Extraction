@@ -1,0 +1,20 @@
+[tool.pdm]
+
+[project]
+name = "pdf-extraction"
+version = "0.0.1"
+description = "Sample code demonstrating the use of PDF extraction capabilities of different libraries"
+authors = [
+    {name = "Achilleas Voutsas", email = "avoutsas@gmail.com"},
+]
+dependencies = [
+    "wheel>=0.38.4",
+    "ipykernel>=6.20.2",
+    "jupyter>=1.0.0",
+    "PyPDF4>=1.27.0",
+    "fitz>=0.0.1.dev2",
+    "pdfminer>=20191125",
+    "tabula>=1.0.5",
+]
+requires-python = ">=3.9"
+license = {text = "MIT"}
